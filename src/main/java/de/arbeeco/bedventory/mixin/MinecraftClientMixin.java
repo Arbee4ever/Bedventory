@@ -18,8 +18,9 @@ public abstract class MinecraftClientMixin {
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
 	public void setScreen(Minecraft instance, Screen screen) {
+		if (instance.player == null) return;
 		if (screen == null) {
-			instance.setScreen(screen);
+			instance.setScreen(null);
 			return;
 		}
 		if (BedventoryClient.config.showInventoryInBed) {

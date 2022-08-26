@@ -1,5 +1,6 @@
 package de.arbeeco.bedventory.mixin;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -22,10 +23,12 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
 	@Inject(method = "keyPressed", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;onClose()V"))
 	public void keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-		if (Minecraft.getInstance().player.isSleeping()) {
-			ClientPacketListener clientPacketListener = Minecraft.getInstance().player.connection;
-			clientPacketListener.send(new ServerboundPlayerCommandPacket(Minecraft.getInstance().player, ServerboundPlayerCommandPacket.Action.STOP_SLEEPING));
-			onClose();
+		if (minecraft == null) return;
+		if (minecraft.player == null) return;
+		if (minecraft.player.isSleeping()) {
+			ClientPacketListener clientPacketListener = minecraft.player.connection;
+			clientPacketListener.send(new ServerboundPlayerCommandPacket(minecraft.player, ServerboundPlayerCommandPacket.Action.STOP_SLEEPING));
+			Minecraft.getInstance().setScreen(null);
 		}
 	}
 }

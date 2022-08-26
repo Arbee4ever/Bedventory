@@ -86,7 +86,7 @@ modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = System.getenv("projectid")
 	versionName = "[QUILT]" + project.name + "-${version}"
-	versionType = "alpha"
+	versionType = "release"
 	uploadFile = remapJar
 	gameVersions = ["1.19", "1.19.1", "1.19.2"]
 	loaders = ["quilt"]
