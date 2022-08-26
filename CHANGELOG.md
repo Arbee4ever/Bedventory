@@ -1,1 +1,1 @@
-- fixed dependency issues
+- fixed some calls that might produce a NullPointerException
