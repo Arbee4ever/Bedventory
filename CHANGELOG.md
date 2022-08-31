@@ -1,1 +1,1 @@
-- fixed some calls that might produce a NullPointerException
+- fixed incompatibility wiht other mods
