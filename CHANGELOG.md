@@ -1,1 +1,1 @@
-- fixed incompatibility wiht other mods
+- maybe fixes issue of Screen sometimes closing/not closing
